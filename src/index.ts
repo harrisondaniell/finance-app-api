@@ -1,3 +1,3 @@
-const nome = ''
+const nome = 'daniel'
 
 console.log(nome)
