@@ -1,9 +1,11 @@
 import dotenv from 'dotenv'
 import express from 'express'
 
+
+
 dotenv.config()
 import { env } from './env'
-import { PostgresHelper } from './db/postgres/client'
+import { PostgresHelper } from './db/postgres/helper'
 
 const app = express()
 

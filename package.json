@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start:dev": "npx tsx src/index.ts"
+    "start:dev": "npx tsx src/index.ts",
+    "migrations": "npx tsx src/db/postgres/migrations/exec.js"
   },
   "keywords": [],
   "author": "",
