@@ -1,6 +1,6 @@
 import { PostgresHelper } from "../../db/postgres/helper";
 
-interface CreateUserParams {
+export interface UserInterface {
   ID: string;
   firstName: string;
   lastName: string,
@@ -9,7 +9,7 @@ interface CreateUserParams {
 }
 
 export class PostgresCreateUserRepository {
-  async execute(createUserParams: CreateUserParams) {
+  async execute(createUserParams: UserInterface) {
     const results = await PostgresHelper.query(
       'insert into users (ID, first_name, last_name, email, password) values ($1, $2, $3, $4, $5)',
       [
