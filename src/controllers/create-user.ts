@@ -2,14 +2,12 @@ import http from 'express'
 import { CreateUserUseCase } from '../use-cases/create-user'
 import { UserInterface } from '../repositories/postgres/create-user'
 import validator from 'validator'
-import { badRequest } from './helpers'
+import { badRequest, created, serverError } from './helpers'
 
 export class CreateUserController {
   async execute(httpRequest: http.Request) {
     try {
       const params : UserInterface = httpRequest.body
-
-      console.log(params)
 
       const requireFields: (keyof UserInterface)[] = ['firstName', 'lastName', 'email', 'password'];
     
@@ -35,18 +33,11 @@ export class CreateUserController {
       const createUserUseCase = new CreateUserUseCase()
       const createdUser = await createUserUseCase.execute(params)
   
-      return {
-        statusCode: 201,
-        body: createdUser
-      }
+      return created(createdUser)
     } catch (error) {
+      
       console.log(error)
-      return {
-        statusCode: 500,
-        body: {
-          errorMessage: 'Internal server error'
-        }
-      }
+      return serverError()
     }
   }
 }
