@@ -6,7 +6,7 @@ export class PostgresGetUserByIdRepository {
       'SELECT * FROM users WHERE id = $1', 
       [userId]
     )
-
     return user[0]
   }
 }
+

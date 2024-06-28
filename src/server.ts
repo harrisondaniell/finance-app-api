@@ -19,7 +19,7 @@ app.use(express.json());
   response.status(statusCode).send(body)
  })
 
- app.get('./api/users/:usersId', async (request, response) => {
+ app.get('/api/users/:userId', async (request, response) => {
   const getUserByIdController = new GetUserByIdController()
 
   const { statusCode, body } = await getUserByIdController.execute(request)
