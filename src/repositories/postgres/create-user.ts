@@ -10,7 +10,7 @@ export interface UserInterface {
 
 export class PostgresCreateUserRepository {
   async execute(createUserParams: UserInterface) {
-    const results = await PostgresHelper.query(
+   await PostgresHelper.query(
       'insert into users (ID, first_name, last_name, email, password) values ($1, $2, $3, $4, $5)',
       [
         createUserParams.ID,
@@ -21,6 +21,10 @@ export class PostgresCreateUserRepository {
       ]
     )
 
-    return results
+    const createdUser = await PostgresHelper.query(
+      'SELECT * FROM users WHERE id = $1',
+      [createUserParams.ID]
+    )
+    return createdUser[0]
   }
 }
