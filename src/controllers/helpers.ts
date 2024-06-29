@@ -29,3 +29,8 @@ export const ok = (body : UserInterface) => ({
   })
 
 
+export const notFound = (body : BodyInterface) => ({
+  statusCode: 404,
+  body
+})
+
