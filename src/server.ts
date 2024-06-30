@@ -3,6 +3,7 @@ import express, { response } from 'express'
 import { env } from './env'
 import { CreateUserController } from './controllers/create-user'
 import { GetUserByIdController } from './controllers/get-user-by-id'
+import { UpdateUserController } from './controllers/update-user'
 
 dotenv.config()
 
@@ -15,6 +16,14 @@ app.use(express.json());
   const createUserController = new CreateUserController()
 
   const {body, statusCode} = await createUserController.execute(request)
+
+  response.status(statusCode).send(body)
+ })
+
+ app.patch('/api/users/:userId', async (request, response) => {
+  const updateUserController = new UpdateUserController()
+
+  const {body, statusCode} = await updateUserController.execute(request)
 
   response.status(statusCode).send(body)
  })
