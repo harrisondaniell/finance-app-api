@@ -1,9 +1,10 @@
 import http from 'express'
-import { badRequest, ok, serverError } from './helpers'
+import { badRequest, ok, serverError } from './helpers/http'
 import { UserInterfaceUpdate } from '../repositories/postgres/update-user'
 import validator from 'validator'
 import { UpdateUserUserCase } from '../use-cases/update-user'
 import { EmailAlreadyInUseError } from '../errors/user'
+import { checkIfPasswordIsValid, checkIfemailIsValid, emailIsAlreadyInUseResponse, invalidIdResponse, invalidPasswordResponse } from './helpers/user'
 
 export class UpdateUserController {
   async execute(httpRequest : http.Request) {
@@ -12,16 +13,14 @@ export class UpdateUserController {
       const isIdValid = validator.isUUID(userId)
 
       if(!isIdValid) {
-         return badRequest({
-          message: 'The provided ID is not valid.'
-         })
+        invalidIdResponse()
       }
 
-      const updateUserParams : UserInterfaceUpdate = httpRequest.body
+      const params : UserInterfaceUpdate = httpRequest.body
 
       const allowedFields = ['first_name', 'last_name', 'email', 'password']
   
-      const someFieldIsNotAllowed = Object.keys(updateUserParams).some(field => !allowedFields.includes(field))
+      const someFieldIsNotAllowed = Object.keys(params).some(field => !allowedFields.includes(field))
   
       if (someFieldIsNotAllowed) {
         return badRequest({
@@ -29,20 +28,18 @@ export class UpdateUserController {
         })
       }
   
-      if (updateUserParams.password) {
-        const passwordIsNotValid = updateUserParams.password.length < 6
-        if (passwordIsNotValid) {
-          let body = {message: 'Password must be at least 6 characters'}
-          return badRequest(body)
+      if (params.password) {
+        const passwordIsValid = checkIfPasswordIsValid(params.password)
+        if (passwordIsValid) {
+          invalidPasswordResponse()
         }
       }
   
-      if (updateUserParams.email) {
-        const emailIsValid = validator.isEmail(updateUserParams.email)
+      if (params.email) {
+        const emailIsValid = checkIfemailIsValid(params.email)
   
         if (!emailIsValid) {
-          let body = {message: 'Invalid e-mail. Please provide a valide one.'}
-          return badRequest(body)
+          emailIsAlreadyInUseResponse()
         }
       }
 
@@ -50,7 +47,7 @@ export class UpdateUserController {
 
       const updateUser = await updateUserUserCase.execute(
         userId,
-        updateUserParams
+        params
       )
 
       return ok(updateUser)

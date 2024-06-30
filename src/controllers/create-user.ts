@@ -1,9 +1,9 @@
 import http from 'express'
 import { CreateUserUseCase } from '../use-cases/create-user'
 import { UserInterface } from '../repositories/postgres/create-user'
-import validator from 'validator'
-import { badRequest, created, serverError } from './helpers'
+import { badRequest, created, serverError } from './helpers/http'
 import { EmailAlreadyInUseError } from '../errors/user'
+import { checkIfPasswordIsValid, checkIfemailIsValid, emailIsAlreadyInUseResponse, invalidPasswordResponse } from './helpers/user'
 
 export class CreateUserController {
   async execute(httpRequest: http.Request) {
@@ -20,17 +20,15 @@ export class CreateUserController {
         }
       }
 
-      const passwordIsNotValid = params.password.length < 6
+      const passwordIsValid = checkIfPasswordIsValid(params.password)
 
-      if (passwordIsNotValid) {
-        let body = {message: 'Password must be at least 6 characters'}
-        return badRequest(body)
+      if (!passwordIsValid) {
+        invalidPasswordResponse()
       }
-      const emailIsValid = validator.isEmail(params.email)
+      const emailIsValid = checkIfemailIsValid(params.email)
 
       if (!emailIsValid) {
-        let body = {message: 'Invalid e-mail. Please provide a valide one.'}
-        return badRequest(body)
+        emailIsAlreadyInUseResponse()
       }
   
       const createUserUseCase = new CreateUserUseCase()
