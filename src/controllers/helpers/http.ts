@@ -1,9 +1,10 @@
 import { UserInterface } from "../../repositories/postgres/create-user"
 import http from 'express'
 
-interface BodyInterface {
-  message: String
+export interface BodyInterface {
+  message: String | void
 }
+
 
 export const badRequest = (body : BodyInterface)  => ({
     statusCode: 400,
@@ -24,7 +25,7 @@ export const serverError = ()  => ({
   })
 
 
-export const ok = (body : UserInterface)  => ({
+export const ok = (body : UserInterface)   => ({
     statusCode: 200, 
     body,
   })

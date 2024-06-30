@@ -1,7 +1,7 @@
 import http from 'express'
-import {checkIfIdValid, invalidIdResponse, badRequest, notFound, ok } from './helpers/index'
+import {checkIfIdValid, invalidIdResponse, badRequest, notFound, ok, userNotFoundResponse } from './helpers/index'
 import { GetUserByIdUseCase } from '../use-cases/index'
-import {  } from './helpers/user'
+
  
 export class GetUserByIdController {
   async execute(httpRequest : http.Request) {
@@ -13,13 +13,10 @@ export class GetUserByIdController {
       }
 
       const getUserByIdUseCase = new GetUserByIdUseCase()
-
       const user = await getUserByIdUseCase.execute(httpRequest.params.userId)
 
       if (!user) {
-        return notFound({
-          message: 'User not found'
-        })
+        return userNotFoundResponse()
       }
       return ok(user)
     } catch (error) {
