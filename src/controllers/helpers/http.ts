@@ -1,21 +1,22 @@
 import { UserInterface } from "../../repositories/postgres/create-user"
+import http from 'express'
 
 interface BodyInterface {
   message: String
 }
 
-export const badRequest = (body : BodyInterface) : object => ({
+export const badRequest = (body : BodyInterface)  => ({
     statusCode: 400,
     body
   })
 
 
-export const created = (body : BodyInterface) : object =>  ({
+export const created = (body : BodyInterface)  =>  ({
     statusCode: 201,
     body,
   })
 
-export const serverError = () : object => ({
+export const serverError = ()  => ({
     statusCode: 500,
     body: {
       message: 'Internal server error'
@@ -23,13 +24,13 @@ export const serverError = () : object => ({
   })
 
 
-export const ok = (body : UserInterface) : object => ({
+export const ok = (body : UserInterface)  => ({
     statusCode: 200, 
     body,
   })
 
 
-export const notFound = (body : BodyInterface) : object => ({
+export const notFound = (body : BodyInterface)  => ({
   statusCode: 404,
   body
 })

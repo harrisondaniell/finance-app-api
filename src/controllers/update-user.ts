@@ -1,9 +1,9 @@
 import http from 'express'
-import { badRequest, ok, serverError } from './helpers/http'
+import { } from './helpers/http'
 import { UserInterfaceUpdate } from '../repositories/postgres/update-user'
 import { UpdateUserUserCase } from '../use-cases/update-user'
 import { EmailAlreadyInUseError } from '../errors/user'
-import { checkIfIdValid, checkIfPasswordIsValid, checkIfemailIsValid, emailIsAlreadyInUseResponse, invalidIdResponse, invalidPasswordResponse } from './helpers/user'
+import { checkIfIdValid, checkIfPasswordIsValid, checkIfemailIsValid, emailIsAlreadyInUseResponse, invalidIdResponse, invalidPasswordResponse, badRequest, ok, serverError  } from './helpers/index'
 
 
 export class UpdateUserController {

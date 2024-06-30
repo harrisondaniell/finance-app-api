@@ -1,9 +1,8 @@
 import http from 'express'
 import { CreateUserUseCase } from '../use-cases/create-user'
 import { UserInterface } from '../repositories/postgres/create-user'
-import { badRequest, created, serverError } from './helpers/http'
 import { EmailAlreadyInUseError } from '../errors/user'
-import { checkIfPasswordIsValid, checkIfemailIsValid, emailIsAlreadyInUseResponse, invalidPasswordResponse } from './helpers/user'
+import { checkIfPasswordIsValid, checkIfemailIsValid, emailIsAlreadyInUseResponse, invalidPasswordResponse, badRequest, created, serverError } from './helpers/index'
 
 export class CreateUserController {
   async execute(httpRequest: http.Request) {

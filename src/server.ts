@@ -1,9 +1,8 @@
 import dotenv from 'dotenv'
 import express, { response } from 'express'
 import { env } from './env'
-import { CreateUserController } from './controllers/create-user'
-import { GetUserByIdController } from './controllers/get-user-by-id'
-import { UpdateUserController } from './controllers/update-user'
+import { CreateUserController, GetUserByIdController, UpdateUserController } from './controllers/index'
+
 
 dotenv.config()
 
