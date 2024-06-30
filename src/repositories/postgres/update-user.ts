@@ -32,7 +32,6 @@ export class PostgresUpdateUserRepository {
       updateQuery,
       updateValues
     )
-
     return updateUser[0]
   }
 }
