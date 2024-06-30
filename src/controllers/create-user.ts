@@ -1,5 +1,5 @@
 import http from 'express'
-import { CreateUserUseCase } from '../use-cases/create-user'
+import { CreateUserUseCase } from '../use-cases/index'
 import { UserInterface } from '../repositories/postgres/create-user'
 import { EmailAlreadyInUseError } from '../errors/user'
 import { checkIfPasswordIsValid, checkIfemailIsValid, emailIsAlreadyInUseResponse, invalidPasswordResponse, badRequest, created, serverError } from './helpers/index'

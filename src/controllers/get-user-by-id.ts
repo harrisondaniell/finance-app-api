@@ -1,7 +1,7 @@
 import http from 'express'
-import { badRequest, created, notFound, ok } from './helpers/http'
-import { GetUserByIdUseCase } from '../use-cases/get-user-by-id'
-import { checkIfIdValid, invalidIdResponse } from './helpers/user'
+import {checkIfIdValid, invalidIdResponse, badRequest, notFound, ok } from './helpers/index'
+import { GetUserByIdUseCase } from '../use-cases/index'
+import {  } from './helpers/user'
  
 export class GetUserByIdController {
   async execute(httpRequest : http.Request) {

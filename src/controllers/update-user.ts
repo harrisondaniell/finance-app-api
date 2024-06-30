@@ -1,7 +1,7 @@
 import http from 'express'
 import { } from './helpers/http'
 import { UserInterfaceUpdate } from '../repositories/postgres/update-user'
-import { UpdateUserUserCase } from '../use-cases/update-user'
+import { UpdateUserUserCase } from '../use-cases/index'
 import { EmailAlreadyInUseError } from '../errors/user'
 import { checkIfIdValid, checkIfPasswordIsValid, checkIfemailIsValid, emailIsAlreadyInUseResponse, invalidIdResponse, invalidPasswordResponse, badRequest, ok, serverError  } from './helpers/index'
 

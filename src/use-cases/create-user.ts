@@ -1,8 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import  bcrypt  from 'bcrypt'
-import {randomUUID} from 'node:crypto'
-import { PostgresCreateUserRepository, UserInterface } from '../repositories/postgres/create-user';
-import { PostgresGetUserByEmailRepository } from '../repositories/postgres/get-user-by-email';
+import { PostgresCreateUserRepository, UserInterface, PostgresGetUserByEmailRepository } from '../repositories/postgres/index';
+ 
 import { EmailAlreadyInUseError } from '../errors/user';
 
 export class CreateUserUseCase {
