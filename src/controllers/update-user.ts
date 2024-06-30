@@ -1,16 +1,16 @@
 import http from 'express'
 import { badRequest, ok, serverError } from './helpers/http'
 import { UserInterfaceUpdate } from '../repositories/postgres/update-user'
-import validator from 'validator'
 import { UpdateUserUserCase } from '../use-cases/update-user'
 import { EmailAlreadyInUseError } from '../errors/user'
-import { checkIfPasswordIsValid, checkIfemailIsValid, emailIsAlreadyInUseResponse, invalidIdResponse, invalidPasswordResponse } from './helpers/user'
+import { checkIfIdValid, checkIfPasswordIsValid, checkIfemailIsValid, emailIsAlreadyInUseResponse, invalidIdResponse, invalidPasswordResponse } from './helpers/user'
+
 
 export class UpdateUserController {
   async execute(httpRequest : http.Request) {
     try {
       const userId = httpRequest.params.userId
-      const isIdValid = validator.isUUID(userId)
+      const isIdValid = checkIfIdValid(userId)
 
       if(!isIdValid) {
         invalidIdResponse()

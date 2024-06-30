@@ -24,3 +24,5 @@ export const emailIsAlreadyInUseResponse =  () =>
   export const checkIfemailIsValid = (email : string) : boolean => (
     validator.isEmail(email)
   )
+
+  export const checkIfIdValid = (id : string) => validator.isUUID(id)
